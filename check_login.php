@@ -12,7 +12,7 @@ if ($username == "" || $password == "") {
   require 'connect.php';
 
   $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-  $result = $conn->query($sql); //เขียนแบบย่อ หรือแบบ arrow function
+  $result = $con->query($sql); //เขียนแบบย่อ หรือแบบ arrow function
   $num = $result->num_rows; //เขียนแบบย่อ
   $row = mysqli_fetch_array($result);
   if ($num == 0) {

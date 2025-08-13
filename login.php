@@ -15,7 +15,7 @@
 
     body {
       font-family: 'MN Taohuai', sans-serif;
-      background: linear-gradient(to right, #74ebd5, #9face6);
+      background: url('https://www.skyweaver.net/images/media/wallpapers/wallpaper1.jpg');
       min-height: 100vh;
       display: flex;
       align-items: center;
