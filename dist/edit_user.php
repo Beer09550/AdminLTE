@@ -1,23 +1,34 @@
-  <?php
-        $username = $_GET['username']; // Get username from URL
-        require '../connect.php'; // Include database connection
-        $sql = "SELECT * FROM users WHERE username = '$username'"; // SQL query to fetch user data
-        $result = $con->query(($sql));
-        $row = mysqli_fetch_array($result); // Fetch user data
-        if (isset($_POST['submit'])) {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-            $fullname = $_POST['fullname'];
-            $phone = $_POST['phone'];
-            $email = $_POST['email'];
+    <?php
+    $username = $_GET['username'];
+    require '../connect.php';
+    $sql = "SELECT * FROM users WHERE username = '$username'";
+    $result = $con->query(($sql));
+    $row = mysqli_fetch_array($result);
+    if (isset($_POST['submit'])) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $fullname = $_POST['fullname'];
+        $phone = $_POST['phone'];
+        $email = $_POST['email'];
+        $filename = $_FILES['image']['name'];
+        if ($filename != "") {
+            unlink('assets/user_img/' . $row['image']);
+            move_uploaded_file($_FILES['image']['tmp_name'], 'assets/user_img/' . $filename);
+            $sql2 = "UPDATE users SET password='$password', fullname='$fullname', phone='$phone', email='$email', image='$filename' WHERE username = '$username'";
+        } else {
+            // ลบ comma ตัวสุดท้ายออก
             $sql2 = "UPDATE users SET password='$password', fullname='$fullname', phone='$phone', email='$email' WHERE username = '$username'";
-            $result2 = $con->query($sql2);
-            if(!$result2) {
-                echo "<script>alert('ไม่สามารถบันทึกข้อมูลได้');history.back();</script>";
-            }else{
-                echo "<script>window.location.href='index.php?page=user_list';</script>";
-            }
         }
+
+
+        $result2 = $con->query($sql2);
+        if (!$result2) {
+            echo "<script>alert('ไม่สามารถบันทึกข้อมูลได้');history.back();</script>";
+        } else {
+
+            echo "<script>window.location.href='index.php?page=users_list';</script>";
+        }
+    }
     ?>
     <!--begin::App Content Header-->
     <div class="app-content-header">
@@ -56,13 +67,13 @@
             </div>
             <!--end::Header-->
             <!--begin::Form-->
-            <form action = "<?php $_SERVER['PHP_SELF'] ?>" method = "POST">
+            <form action = "<?php $_SERVER['PHP_SELF'] ?>" method = "POST" enctype="multipart/form-data">
                 <!--begin::Body-->
                 <div class="card-body">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Username</label>
                     <input type="text" class="form-control" name="username" id="exampleInputEmail1" 
-                    aria-describedby="emailHelp" value="<?php echo $row['username'] ?>" disabled />
+                    aria-describedby="emailHelp" value="<?php echo $row['username'] ?>" disable />
                     
                 </div>
                 <div class="mb-3">
@@ -84,6 +95,14 @@
                     <label for="exampleInputPassword1" class="form-label">Email</label>
                     <input type="email" name="email" class="form-control" id="exampleInputPassword1"
                     value="<?php echo $row['email'] ?>" />
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">รูปภาพเดิม</label>
+                    <img src="assets/user_img/<?php echo htmlspecialchars($row['image']); ?>" width="250px" height="250px" alt="รูปภาพเดิม" class="mb-3" />
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">รูปภาพใหม่</label>
+                    <input type="file" name="image" class="form-control" id="exampleInputPassword1" />
                 </div>
                 </div>
                 <!--end::Body-->

@@ -40,15 +40,40 @@ $result = $con->query($sql);
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <a href="index.php?page=add_pro" class="btn btn-success  mb-4">+add product</a>
+                            <div class="col-md-12">
+                <form action="add_product_csv.php" method="POST" enctype="multipart/form-data">
+                  <div class="row">
+
+              <div class="col-md-10">
+                <form action="add_product_csv.php" method="POST" enctype="multipart/form-data">
+                  <div class="row mb-3">
+                    <label for="csvFile" class="col-sm-2 col-form-label">เพิ่มทีละหลายสินค้า</label>
+                    <div class="col-sm-8">
+                      <input type="file" class="form-control" name="csv_file" id="csvFile" accept=".csv,.xlsx,.xls">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="submit" class="btn btn-success w-100" value="อัปโหลด" name="upload">
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+              <div class="col-md-2">
+                <a href="index.php?page=add_product" class="btn btn-success mb-4">
+                  <i class="bi bi-person-add">เพิ่มทีละสินค้า
+                </a></i>
+              </div>
                             <table class="table table-bordered">
+                                
                                 <thead>
+                                    
                                     <tr>
                                         <th style="width: 10px">pro_id</th>
                                         <th>pro_name</th>
                                         <th>pro_price</th>
                                         <th>pro_amount	</th>
                                         <th>pro_status</th>
+                                        <th>image</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -62,6 +87,7 @@ $result = $con->query($sql);
                                             <td><?php echo $row['pro_price'] ?></td>
                                             <td><?php echo $row['pro_amount'] ?></td>
                                             <td><?php echo $row['pro_status'] ?></td>
+                                            <td><img src="assets/user_img/<?php echo $row['image']; ?>" width="100">
                                             <td>
                                                 <a href="index.php?page=edit_pro&pro_id=<?php echo $row ['pro_id'] ?>" class="btn btn-warning">
                                                 <i class="bi bi-pencil-square"></i>
