@@ -26,7 +26,7 @@
             echo "<script>alert('ไม่สามารถบันทึกข้อมูลได้');history.back();</script>";
         } else {
 
-            echo "<script>window.location.href='index.php?page=users_list';</script>";
+            echo "<script>window.location.href='index.php?page=users';</script>";
         }
     }
     ?>

@@ -12,7 +12,7 @@ while ($csvArr = fgetcsv($csv, 1000, ',')) {
     $pro_amount = $csvArr[2];
     $pro_status = $csvArr[3];
 
-    $sql = "INSERT INTO product (pro_name, pro_price, pro_amount, pro_status) 
+    $sql = "INSERT INTO products (pro_name, pro_price, pro_amount, pro_status) 
             VALUES('$pro_name','$pro_price','$pro_amount','$pro_status')";
     $result = $con->query($sql);
 

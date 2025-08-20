@@ -115,6 +115,12 @@
           break;
           case 'del_pro';
           include 'del_pro.php';
+          break;
+          case 'search_user';
+          include 'search_user.php';
+          break;
+          case 'search_product';
+          include 'search_product.php';
         default:
       }
       ?>

@@ -29,7 +29,7 @@ if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] == 0) {
                 $result = $con->query($sql);
 
                 if (!$result) {
-                    echo "<script>alert('ไม่สามารถเพิ่มข้อมูลได้')</script>";
+                    echo "<script>alert('เพิ่มข้อมูลสำเร็จทั้งหมด $rows แถว') window.location.href='index.php?page=users_list'</script>";
                 }
             }
             fclose($csv);
@@ -42,6 +42,5 @@ if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] == 0) {
         echo "อัปโหลดไฟล์ไม่สำเร็จ";
     }
 } else {
-    echo "กรุณาเลือกไฟล์ CSV ก่อนอัปโหลด";
+    echo "<script>alert('กรุณาเลือกไฟล์ CSV ก่อนอัปโหลด')</script>";
 }
-?>
